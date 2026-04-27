@@ -2,11 +2,11 @@ import { useFrame, useLoader } from "@react-three/fiber"
 import { useMemo, useRef } from "react"
 import * as THREE from 'three'
 
-import grassFragmentShader from './shaders/grass/grass-fragment-shader.glsl'
-import grassVertexShader from './shaders/grass/grass-vertex-shader.glsl'
+import grassFragmentShader from '../shaders/grass/grass-fragment-shader.glsl'
+import grassVertexShader from '../shaders/grass/grass-vertex-shader.glsl'
 
-import groundFragmentShader from './shaders/terrain/ground-fragment-shader.glsl'
-import groundVertexShader from './shaders/terrain/ground-vertex-shader.glsl'
+import groundFragmentShader from '../shaders/terrain/ground-fragment-shader.glsl'
+import groundVertexShader from '../shaders/terrain/ground-vertex-shader.glsl'
 
 
 const NUM_GRASS = 64 * (2 ** 6)

@@ -58,6 +58,7 @@ export default function MobileControls({controlsEnabled = true, setIsMoving}){
                 back: 'rgba(99, 102, 241, 0.12)'
             }
         })
+        managerRef.current = manager
 
 		//Player Controls
         manager.on('move', (event) => {
@@ -77,8 +78,10 @@ export default function MobileControls({controlsEnabled = true, setIsMoving}){
         })
 
         return () => {
-            managerRef.current?.destroy()
-            managerRef.current = null
+            if (managerRef.current) {
+                managerRef.current.destroy()
+                managerRef.current = null
+            }
         }
     }, [controlsEnabled])
 

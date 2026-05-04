@@ -6,11 +6,6 @@ export default function Tree({position, scale}){
 
     const tree = useGLTF('/models/willow.glb')
 
-    console.log(tree)
-
-    const {progress} = useProgress()
-    console.log(progress)
-
     return <primitive object={tree.scene} scale={scale} position={position}/>
 }
 

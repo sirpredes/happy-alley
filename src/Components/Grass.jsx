@@ -23,12 +23,16 @@ const MAX_DIST_SQ = MAX_DIST * MAX_DIST
 
 export default function Grass(){
 
+    /**
+     * Grass
+     */
+
+    //Create grass geometry
     const grassGeometry = useMemo(() => {
         return CreateGeometry(GRASS_SEGMENTS)
     }, [GRASS_SEGMENTS])
-
-    const tileDataTexture = useLoader(THREE.TextureLoader, './textures/tileData.jpg') //A lo millor se pot canviar perque no ho necessitam, posar simplement un color
     
+    //Grass uniforms
     const uniforms = {
         grassParams: new THREE.Uniform(
             new THREE.Vector4(
@@ -38,12 +42,12 @@ export default function Grass(){
                 GRASS_HEIGHT
             )
         ),
-        tileDataTexture: new THREE.Uniform(tileDataTexture),
         grassDiffuse: new THREE.Uniform(null),               //Mirar aquestes dues perque igual mos conve fer-ho aixi sense tiledatatexture
         time: new THREE.Uniform(0),
         resolution: new THREE.Uniform(new THREE.Vector2(1, 1))
     }
 
+    //Different types of grass blades
     const diffuse = new TextureAtlas()
     diffuse.Load('diffuse', [
         './textures/grass1.png',
@@ -53,28 +57,32 @@ export default function Grass(){
         uniforms.grassDiffuse = new THREE.Uniform(diffuse.Info['diffuse'].atlas)
     }
 
+    //Create material
     const grassMaterial = new THREE.ShaderMaterial({
         uniforms,
         vertexShader: grassVertexShader,
         fragmentShader: grassFragmentShader,
         side: THREE.FrontSide
     })
-    
-    // const diffuseTexture = new THREE.TextureLoader().load('./textures/grid.png')
-    // diffuseTexture.wrapS = THREE.RepeatWrapping;
-    // diffuseTexture.wrapT = THREE.RepeatWrapping;
 
+    /**
+     * Ground
+     */
+    //Create material
     const groundMaterial = new THREE.ShaderMaterial({
         uniforms: {
             resolution: new THREE.Uniform(new THREE.Vector2(1, 1)),
-            diffuseTexture: new THREE.Uniform(null)//diffuseTexture)
         },
         vertexShader: groundVertexShader,
         fragmentShader: groundFragmentShader,
     })
 
+    //Create geometry
     const groundGeometry = new THREE.PlaneGeometry(1, 1, 512, 512)
 
+    /**
+     * Complete tiles (With world pos)
+     */
     const grassTiles = useMemo(() => {
         const tiles = []
 
@@ -99,6 +107,7 @@ export default function Grass(){
     const grassRefs = useRef([])
     const groundRefs = useRef([])
 
+    //Avoid rendering not visible grass tiles
     useFrame((state) => {
         const camPos = state.camera.position
 
@@ -123,25 +132,25 @@ export default function Grass(){
     return <>
         {grassTiles.map((pos, i) => (
             <group key={i}>
-            {/* Grass */}
-            <mesh
-                ref={(el) => (grassRefs.current[i] = el)}
-                geometry={grassGeometry}
-                material={grassMaterial}
-                position={[pos.x, pos.y, pos.z]}
-                frustumCulled={true}
-            />
+                {/* Grass */}
+                <mesh
+                    ref={(el) => (grassRefs.current[i] = el)}
+                    geometry={grassGeometry}
+                    material={grassMaterial}
+                    position={[pos.x, pos.y, pos.z]}
+                    frustumCulled={true}
+                />
 
-            {/* Ground */}
-            <mesh
-                ref={(el) => (groundRefs.current[i] = el)}
-                geometry={groundGeometry}
-                material={groundMaterial}
-                position={[pos.x, pos.y, pos.z]}
-                rotation-x={-Math.PI / 2}
-                scale={20}
-                frustumCulled={true}
-            />
+                {/* Ground */}
+                <mesh
+                    ref={(el) => (groundRefs.current[i] = el)}
+                    geometry={groundGeometry}
+                    material={groundMaterial}
+                    position={[pos.x, pos.y, pos.z]}
+                    rotation-x={-Math.PI / 2}
+                    scale={20}
+                    frustumCulled={true}
+                />
             </group>
       ))}
     </>
@@ -176,7 +185,8 @@ function CreateGeometry(segments) {
     geo.setIndex(indices);
     geo.boundingSphere = new THREE.Sphere(
         new THREE.Vector3(0, 0, 0),
-        5 + GRASS_PATCH_SIZE * 4);
+        5 + GRASS_PATCH_SIZE * 4
+    );
 
     return geo;
 }
@@ -195,6 +205,7 @@ function _GetImageData(image) {
   return context.getImageData( 0, 0, image.width, image.height );
 }
 
+//Taken from Simondev
 class TextureAtlas {
     constructor() {
         this.create_();

@@ -1,7 +1,6 @@
 
 uniform vec4 grassParams;
 uniform float time;
-uniform sampler2D tileDataTexture;
 
 varying vec3 vColor;
 varying vec4 vGrassData;
@@ -146,18 +145,17 @@ void main() {
 
     vec3 localOffset = grassOffset;
 
-// 👉 convertir primero a mundo
-vec3 worldPos = (modelMatrix * vec4(localOffset, 1.0)).xyz;
+    //Convert to world position
+    vec3 worldPos = (modelMatrix * vec4(localOffset, 1.0)).xyz;
 
-// 👉 calcular altura en mundo
-worldPos = terrainHeight(worldPos);
-worldPos.y *= 0.9;
+    //Calc the height
+    worldPos = terrainHeight(worldPos);
+    worldPos.y *= 0.9;
 
-// 👉 volver a local
-grassOffset = (inverse(modelMatrix) * vec4(worldPos, 1.0)).xyz;
+    //Translate to loacl
+    grassOffset = (inverse(modelMatrix) * vec4(worldPos, 1.0)).xyz;
 
-// 👉 ahora sí
-vec3 grassBladeWorldPos = worldPos;
+    vec3 grassBladeWorldPos = worldPos;
     vec3 hashVal = hash(grassBladeWorldPos);
 
     float grassType = saturate(hashVal.z) > 0.95 ? 1.0 : 0.0;
@@ -166,11 +164,9 @@ vec3 grassBladeWorldPos = worldPos;
     const float PI = 3.14159;
     float angle = remap(hashVal.x, -1.0, 1.0, -PI, PI);
 
-    vec4 tileData = texture2D(tileDataTexture, vec2(-grassBladeWorldPos.x, grassBladeWorldPos.z)); // / GRASS_PATCH_SIZE * 0.5 + 0.5);
-
     //Stiffness
-    float stiffness = 1.0;// - tileData.x * 0.85;
-    float tileGrassHeight = mix(1.0, 1.5, grassType) * (1.0 - tileData.x);
+    float stiffness = 1.0;
+    float tileGrassHeight = mix(1.0, 1.5, grassType);
 
     //Debug
     // grassOffset = vec3(float(gl_InstanceID) * 0.5 - 8.0, 0.0, 0.0);

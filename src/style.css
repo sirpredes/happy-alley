@@ -130,7 +130,7 @@ body,
 	border: none;
 	border-radius: 50%;
 
-	font-size: 1.4rem;
+	font-size: 2rem;
 	cursor: pointer;
 
 	z-index: 2;
@@ -138,6 +138,12 @@ body,
 	background: #36555A;
 	backdrop-filter: blur(8px);
 	color: #F7EDE3;
+}
+
+.gear {
+	display: inline-block;
+	filter: brightness(0) invert(1);
+	font-size: 2rem;
 }
 
 /* ---- SETTINGS PANEL ----*/

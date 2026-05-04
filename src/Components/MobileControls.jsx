@@ -10,7 +10,7 @@ export default function MobileControls({controlsEnabled = true, setIsMoving}){
     const moveRef = useRef({ x: 0, y: 0 })
     const managerRef = useRef(null)
 
-    const yawRef = useRef(0)
+    const yawRef = useRef(Math.PI)
     const pitchRef = useRef(0)
 
     const touchRef = useRef({
@@ -19,8 +19,10 @@ export default function MobileControls({controlsEnabled = true, setIsMoving}){
         lastX: 0,
         lastY: 0,
     })
+    
+    const needsSyncRef = useRef(true)
 
-    const speed = 10 
+    const speed = 8 
     const sensitivity = 0.003
     const maxPitch = Math.PI / 2.4
     const heightOffset = 10.5
@@ -88,20 +90,16 @@ export default function MobileControls({controlsEnabled = true, setIsMoving}){
 
         camera.rotation.order = 'YXZ'
 
-		//Initial orientation
-        yawRef.current = camera.rotation.y + Math.PI
-        pitchRef.current = camera.rotation.x
+        needsSyncRef.current = true
 
-        camera.rotation.set(
-			pitchRef.current, 
-			yawRef.current, 
-			0
-        )
+        // Reset touch state
+        touchRef.current.active = false
+        touchRef.current.touchId = null
 
-		//Identify the touch
+        //Identify the touch
         const onTouchStart = (e) => {
             for (const touch of e.touches) {
-                //Ignore joystick zone
+                // ignorar zona joystick
                 if (touch.clientX < window.innerWidth * 0.4) continue
 
                 if (touchRef.current.active) return
@@ -115,7 +113,7 @@ export default function MobileControls({controlsEnabled = true, setIsMoving}){
             }
         }
 
-		//Finger movement --> camera rotation
+        //Finger movement --> camera rotation
         const onTouchMove = (e) => {
             if (!touchRef.current.active) return
 
@@ -124,6 +122,20 @@ export default function MobileControls({controlsEnabled = true, setIsMoving}){
             )
 
             if (!touch) return
+            
+            //Only if it is needed (Camera bug after closing settings)
+            if (needsSyncRef.current) {
+                yawRef.current = camera.rotation.y
+                pitchRef.current = camera.rotation.x
+
+                pitchRef.current = Math.max(
+                    -maxPitch,
+                    Math.min(maxPitch, pitchRef.current)
+                )
+
+                needsSyncRef.current = false
+                return
+            }
 
             const deltaX = touch.clientX - touchRef.current.lastX
             const deltaY = touch.clientY - touchRef.current.lastY
@@ -140,7 +152,7 @@ export default function MobileControls({controlsEnabled = true, setIsMoving}){
             touchRef.current.lastY = touch.clientY
         }
 
-		//Clean touch ref
+        //Clean touch ref
         const onTouchEnd = (e) => {
             const stillExists = [...e.touches].some(
                 t => t.identifier === touchRef.current.touchId
@@ -157,10 +169,11 @@ export default function MobileControls({controlsEnabled = true, setIsMoving}){
         window.addEventListener('touchend', onTouchEnd)
 
         return () => {
-			window.removeEventListener('touchstart', onTouchStart)
-			window.removeEventListener('touchmove', onTouchMove)
-			window.removeEventListener('touchend', onTouchEnd)
+            window.removeEventListener('touchstart', onTouchStart)
+            window.removeEventListener('touchmove', onTouchMove)
+            window.removeEventListener('touchend', onTouchEnd)
         }
+
     }, [controlsEnabled, camera])
 
 	/**

@@ -1,10 +1,10 @@
 import { Suspense, useState, useEffect, useMemo } from 'react'
 import { Canvas } from '@react-three/fiber'
-import Experience from './Components/Experience.jsx'
-import { LoadingScreen } from './Components/LoadingScreen.jsx'
-import MobileSettingsButton from './Components/MobileSettingsButton.jsx'
-import SettingsMenu from './Components/SettingsMenu.jsx'
-import AudioManager from './Components/AudioManager.jsx'
+import Experience from './Experience.jsx'
+import { LoadingScreen } from './LoadingScreen.jsx'
+import MobileSettingsButton from './MobileSettingsButton.jsx'
+import SettingsMenu from './SettingsMenu.jsx'
+import AudioManager from './AudioManager.jsx'
 
 export default function App(){
 

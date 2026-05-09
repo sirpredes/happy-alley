@@ -19,7 +19,7 @@ export default function SettingsMenu({
 		localStorage.setItem("settings", JSON.stringify(settings))
 	}, [settings])
 
-	//Toggle
+	//Update settings
 	const updateSetting = (key, value) => {
 		setSettings((prev) => ({
 			...prev,
@@ -159,8 +159,21 @@ export default function SettingsMenu({
 					{activeTab === 'Credits' && (
 						<div className="credits-content">
 							<p>Happy Alley</p>
-							<p>Created with React Three Fiber</p>
-							<p>Art Direction / Development</p>
+							<p>Created with React Three Fiber / Drei</p>
+							<p>Assets:</p>
+							<ul>
+								<li>Tree model: "Willow" (https://skfb.ly/ouFOJ) by evolveduk is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+								<li>Wind sound: wind medium brisk breeze through stiff dry corn stalks or grass sharp whistle.flac by kyles -- https://freesound.org/s/454364/ -- License: Creative Commons 0</li>
+								<li>Steps sounds: Steps on dry grass by colloyilett -- https://freesound.org/s/726887/ -- License: Creative Commons 0</li>
+								<li>Buttons sounds: Mechanical Buttons (DaVinci Resolve Advanced Panel) by PixelProphecy -- https://freesound.org/s/497026/ -- License: Attribution 4.0</li>
+								<li>Sound edition: Lucía García Valiente</li>
+							</ul>
+							<p>Special thanks to: </p>
+							<ul>
+								<li>Bruno Simon (Three.js Journey)</li>
+								<li>Simondev</li>
+							</ul>
+							<p>Art Direction / Development by Antonio Paredes Casasnovas</p>
 						</div>
 					)}
 				</div>

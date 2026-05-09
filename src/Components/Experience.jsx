@@ -1,6 +1,6 @@
 import { Sky, Cloud } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
-import TerrainCamera from './TerrainCamera'
+import DesktopControls from './DesktopControls'
 import Tree from './Tree'
 import Grass from './Grass'
 import MobileControls from './MobileControls'
@@ -17,7 +17,7 @@ export default function Experience({controlsEnabled, setIsMoving, isMobile}){
                 setIsMoving={setIsMoving}
             /> 
                 : 
-            <TerrainCamera 
+            <DesktopControls 
                 controlsEnabled={controlsEnabled} 
                 setIsMoving={setIsMoving}
             />

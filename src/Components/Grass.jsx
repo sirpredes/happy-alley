@@ -78,7 +78,7 @@ export default function Grass(){
     })
 
     //Create geometry
-    const groundGeometry = new THREE.PlaneGeometry(1, 1, 512, 512)
+    const groundGeometry = new THREE.PlaneGeometry(1, 1, 50, 50)
 
     /**
      * Complete tiles (With world pos)

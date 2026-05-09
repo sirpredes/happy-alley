@@ -1,7 +1,7 @@
 import { useProgress } from "@react-three/drei"
 
 export const LoadingScreen = ({ started, onStarted }) => {
-    const {progress, active} = useProgress()
+    const {active} = useProgress()
     
     return <div className={`loading-screen ${started ? "loading-screen--started" : ""}`}>
         <div className="loading-screen_board">

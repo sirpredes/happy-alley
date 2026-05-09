@@ -102,7 +102,7 @@ export default function MobileControls({controlsEnabled = true, setIsMoving}){
         //Identify the touch
         const onTouchStart = (e) => {
             for (const touch of e.touches) {
-                // ignorar zona joystick
+                // ignora sa zona des joystick
                 if (touch.clientX < window.innerWidth * 0.4) continue
 
                 if (touchRef.current.active) return

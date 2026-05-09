@@ -54,7 +54,11 @@ export default function App(){
                 }}
             >
                 <Suspense fallback={null}>
-                    <Experience controlsEnabled={!settingsOpen} setIsMoving={setIsMoving} isMobile={isMobile}/>
+                    <Experience 
+                        controlsEnabled={!settingsOpen} 
+                        setIsMoving={setIsMoving} 
+                        isMobile={isMobile}
+                    />
                 </Suspense>
             </Canvas>
         )

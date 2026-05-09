@@ -31,16 +31,16 @@ export default function AudioManager({
 
 		//Steps
 		stepsRef.current = Array.from({ length: 17 }, (_, i) => {
-		const audio = new Audio(`/sounds/pisadas/paso ${i + 1}.mp3`)
-		audio.volume = settings.masterVolume / 100
-		return audio
+			const audio = new Audio(`/sounds/pisadas/paso ${i + 1}.mp3`)
+			audio.volume = settings.masterVolume / 100
+			return audio
 		})
 
 		//Clicks
 		clickRef.current = Array.from({ length: 9 }, (_, i) => {
-		const audio = new Audio(`/sounds/clicks/click ${i + 1}.mp3`)
-		audio.volume = settings.masterVolume / 100
-		return audio
+			const audio = new Audio(`/sounds/clicks/click ${i + 1}.mp3`)
+			audio.volume = settings.masterVolume / 100
+			return audio
 		})
 
 		//wind start
@@ -49,7 +49,7 @@ export default function AudioManager({
 	}, [start])
 
 	/**
-	 * Volume update (Sliders + open settings)
+	 * Volume update
 	 */
 	useEffect(() => {
 		if (!windRef.current) return
@@ -96,7 +96,7 @@ export default function AudioManager({
 	}, [isMoving])
 
 	/**
-	 * Open/Close settings audio
+	 * Settings Open/Close/buttonPressed audio
 	 */
 	useEffect(() => {
 		if (!clickRef.current || clickRef.current.length === 0) return

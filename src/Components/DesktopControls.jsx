@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { fract, mix, dot, vec3, hash, noise, terrainHeight} from './AuxFunctions.js'
 
-export default function TerrainPlayer({controlsEnabled = true, setIsMoving}) {
+export default function DesktopControls({controlsEnabled = true, setIsMoving}) {
 	const { camera } = useThree()
 
 	const keys = useRef({})

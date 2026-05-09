@@ -2,6 +2,7 @@ import { useGLTF, useProgress } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 
+//"Willow" (https://skfb.ly/ouFOJ) by evolveduk is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 export default function Tree({position, scale}){
 
     const tree = useGLTF('/models/willow.glb')

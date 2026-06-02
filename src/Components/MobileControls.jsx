@@ -41,7 +41,7 @@ export default function MobileControls({controlsEnabled = true, setIsMoving}){
 
         if(!nippleZone) return
 
-		//Appearance
+		//Create joystick & appearance
         const manager = nipplejs.create({
             zone: nippleZone,
             mode: 'static',

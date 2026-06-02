@@ -16,10 +16,6 @@ float remap(float v, float inMin, float inMax, float outMin, float outMax) {
     return mix(outMin, outMax, t);
 }
 
-// float saturate(float x) {
-//     return clamp(x, 0.0, 1.0);
-// }
-
 vec3 lambertLight( vec3 normal, vec3 viewDir, vec3 lightDir, vec3 lightColor){
     float wrap = 0.5;
     float dotNL = saturate((dot(normal, lightDir) + wrap) / (1.0 + wrap));

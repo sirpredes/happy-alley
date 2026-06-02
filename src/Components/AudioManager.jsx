@@ -22,21 +22,21 @@ export default function AudioManager({
 	useEffect(() => {
 		if (!start) return
 
-		//Wind
+		//Wind initialize
 		windRef.current = new Audio('/sounds/sonido brisa.mp3')
 		windRef.current.loop = true
 		const target = (settings.ambientVolume / 100) * (settingsOpen ? 0.2 : 1)
 		windRef.current.volume = 0
 		fadeAudio(windRef.current, target, 2000)
 
-		//Steps
+		//Steps initialize
 		stepsRef.current = Array.from({ length: 17 }, (_, i) => {
 			const audio = new Audio(`/sounds/pisadas/paso ${i + 1}.mp3`)
 			audio.volume = settings.masterVolume / 100
 			return audio
 		})
 
-		//Clicks
+		//Clicks initialize
 		clickRef.current = Array.from({ length: 9 }, (_, i) => {
 			const audio = new Audio(`/sounds/clicks/click ${i + 1}.mp3`)
 			audio.volume = settings.masterVolume / 100
@@ -54,17 +54,17 @@ export default function AudioManager({
 	useEffect(() => {
 		if (!windRef.current) return
 
-		//Wind 
+		//Wind volume update
 		windRef.current.volume = (settings.ambientVolume / 100) * (settingsOpen ? 0.5 : 1)
 
-		//Steps
+		//Steps volume update
 		if (stepsRef.current.length > 0) {
 			stepsRef.current.forEach(a => {
 				a.volume = settings.masterVolume / 100
 			})
 		}
 
-		//Clicks
+		//Clicks volume update
 		if (clickRef.current.length > 0) {
 			clickRef.current.forEach(a => {
 				a.volume = settings.masterVolume / 100

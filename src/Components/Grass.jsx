@@ -42,7 +42,7 @@ export default function Grass(){
                 GRASS_HEIGHT
             )
         ),
-        grassDiffuse: new THREE.Uniform(null),               //Mirar aquestes dues perque igual mos conve fer-ho aixi sense tiledatatexture
+        grassDiffuse: new THREE.Uniform(null),
         time: new THREE.Uniform(0),
         resolution: new THREE.Uniform(new THREE.Vector2(1, 1))
     }

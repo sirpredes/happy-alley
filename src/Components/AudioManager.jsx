@@ -27,7 +27,7 @@ export default function AudioManager({
 		windRef.current.loop = true
 		const target = (settings.ambientVolume / 100) * (settingsOpen ? 0.2 : 1)
 		windRef.current.volume = 0
-		fadeAudio(windRef.current, target, 2000)
+		
 
 		//Steps initialize
 		stepsRef.current = Array.from({ length: 17 }, (_, i) => {
@@ -45,6 +45,7 @@ export default function AudioManager({
 
 		//wind start
 		windRef.current.play().catch(() => {})
+		fadeAudio(windRef.current, target, 2000)
 
 	}, [start])
 

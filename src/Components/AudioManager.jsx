@@ -44,8 +44,10 @@ export default function AudioManager({
 		})
 
 		//wind start
-		windRef.current.play().catch(() => {})
-		fadeAudio(windRef.current, target, 2000)
+		setTimeout(() => {
+			windRef.current.play().catch(() => {})
+			fadeAudio(windRef.current, target, 2000)
+		}, 200)
 
 	}, [start])
 
